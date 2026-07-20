@@ -1,11 +1,14 @@
 import {
   AbsoluteFill,
+  OffthreadVideo,
   Sequence,
   interpolate,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { CLIPS, clipDurationInFrames } from "../clips";
 import { COLORS, FONT_FAMILY } from "../constants";
 import {
   Beat,
@@ -15,33 +18,41 @@ import {
   Reel as ReelType,
 } from "./reelData";
 
-// Decoratieve, langzaam zwevende blokken op de achtergrond
-const FloatingBlocks: React.FC<{ accent: string }> = ({ accent }) => {
-  const frame = useCurrentFrame();
-  const blocks = [
-    { x: -60, y: 180, w: 320, h: 200, speed: 0.6, phase: 0, color: accent },
-    { x: 820, y: 90, w: 260, h: 340, speed: 0.4, phase: 2, color: COLORS.panelLight },
-    { x: 60, y: 1500, w: 380, h: 240, speed: 0.5, phase: 4, color: COLORS.panelLight },
-    { x: 760, y: 1350, w: 300, h: 300, speed: 0.7, phase: 1, color: accent },
-    { x: 420, y: 640, w: 240, h: 160, speed: 0.3, phase: 3, color: COLORS.panel },
-  ];
+// Jouw eigen standbeelden als doorlopende achtergrond, met een donkere
+// laag eroverheen zodat de tekst leesbaar blijft.
+const BackgroundClips: React.FC = () => {
+  const { fps, durationInFrames } = useVideoConfig();
+
+  const segments: { file: string; from: number; frames: number }[] = [];
+  let acc = 0;
+  let i = 0;
+  while (acc < durationInFrames) {
+    const clip = CLIPS[i % CLIPS.length];
+    const frames = Math.min(
+      clipDurationInFrames(clip, fps),
+      durationInFrames - acc,
+    );
+    segments.push({ file: clip.file, from: acc, frames });
+    acc += frames;
+    i++;
+  }
+
   return (
     <AbsoluteFill>
-      {blocks.map((b, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            left: b.x,
-            top: b.y + Math.sin(frame * 0.02 * b.speed + b.phase) * 30,
-            width: b.w,
-            height: b.h,
-            borderRadius: 24,
-            backgroundColor: b.color,
-            opacity: 0.09,
-          }}
-        />
+      {segments.map((segment, idx) => (
+        <Sequence
+          key={idx}
+          from={segment.from}
+          durationInFrames={segment.frames}
+        >
+          <OffthreadVideo
+            src={staticFile(segment.file)}
+            muted
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </Sequence>
       ))}
+      <AbsoluteFill style={{ backgroundColor: "rgba(13, 27, 42, 0.78)" }} />
     </AbsoluteFill>
   );
 };
@@ -244,7 +255,7 @@ export const Reel: React.FC<{ index: number }> = ({ index }) => {
         fontFamily: FONT_FAMILY,
       }}
     >
-      <FloatingBlocks accent={reel.accent} />
+      <BackgroundClips />
 
       {/* Voortgangsbalk */}
       <div

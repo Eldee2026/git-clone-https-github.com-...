@@ -8,5 +8,7 @@ export const COLORS = {
   muted: "#8FA3BF",
 } as const;
 
+export const VIDEO_FPS = 30;
+
 export const FONT_FAMILY =
   '"Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif';

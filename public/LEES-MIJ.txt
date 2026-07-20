@@ -1,0 +1,15 @@
+Zet in deze map (public/) de videobestanden van de modulaire stand,
+bijvoorbeeld: stand-1.mp4, stand-2.mp4, stand-3.mp4
+
+Uploaden via GitHub.com:
+1. Open de repository en klik op de map "public"
+2. Klik op "Add file" > "Upload files"
+3. Sleep je video's erin en klik op "Commit changes"
+
+Let op de limieten van GitHub:
+- Via de browser: maximaal 25 MB per bestand
+- Via git push: maximaal 100 MB per bestand
+Zijn je video's groter? Comprimeer ze eerst (bijv. via HandBrake)
+of gebruik Git LFS.
+
+Vul daarna in src/clips.ts de echte bestandsnamen en de duur per clip in.

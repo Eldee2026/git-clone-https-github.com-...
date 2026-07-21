@@ -11,14 +11,20 @@ import { CLIPS, Clip, clipDurationInFrames } from "../clips";
 import { BRAND, FONT_HEADLINE, FONT_BODY } from "../brand";
 
 // Vier fade-punten: in-start, in-eind, uit-start, uit-eind.
+// De punten worden zo nodig opgehoogd zodat ze strikt oplopend blijven
+// (interpolate crasht anders op gelijke waarden).
 export const fade = (
   frame: number,
   [i0, i1, o0, o1]: [number, number, number, number],
-): number =>
-  interpolate(frame, [i0, i1, o0, o1], [0, 1, 1, 0], {
+): number => {
+  const p1 = Math.max(i0 + 1, i1);
+  const p2 = Math.max(p1 + 1, o0);
+  const p3 = Math.max(p2 + 1, o1);
+  return interpolate(frame, [i0, p1, p2, p3], [0, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+};
 
 // Roteer de clip-volgorde zodat elke reel een andere beeldvolgorde krijgt.
 const rotatedClips = (from: number): Clip[] => {

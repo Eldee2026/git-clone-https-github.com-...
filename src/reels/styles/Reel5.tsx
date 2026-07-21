@@ -96,7 +96,10 @@ const Outro: React.FC = () => {
     extrapolateRight: "clamp",
   });
   const mark = spring({ frame: frame - 42, fps, config: { damping: 200 } });
-  const cta = fade(frame, [70, 86, OUTRO, OUTRO]);
+  const cta = interpolate(frame, [70, 86], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ backgroundColor: `rgba(233,196,106,${gold})` }} />

@@ -99,7 +99,10 @@ const Outro: React.FC = () => {
     config: { damping: 200 },
     durationInFrames: 60,
   });
-  const cta = fade(frame, [70, 88, OUTRO, OUTRO]);
+  const cta = interpolate(frame, [70, 88], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
     <AbsoluteFill>
       <AbsoluteFill style={{ backgroundColor: `rgba(11,11,12,${black})` }} />

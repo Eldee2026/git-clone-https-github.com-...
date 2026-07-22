@@ -7,7 +7,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { BRAND, FONT_HEADLINE, FONT_BODY, FONT_ACCENT } from "../../brand";
-import { Footage, LogoCircle, fade } from "../shared";
+import { Footage, LogoCircle, CornerLogo, fade } from "../shared";
 import { Beat, Reel, STYLE_TIMING, beatStarts } from "../reelData";
 
 const { intro: INTRO, outro: OUTRO } = STYLE_TIMING[2];
@@ -151,6 +151,9 @@ export const Reel3: React.FC<{ reel: Reel; total: number }> = ({
           <BeatText beat={beat} />
         </Sequence>
       ))}
+      <Sequence from={INTRO} durationInFrames={outroStart - INTRO}>
+        <CornerLogo />
+      </Sequence>
       <Sequence from={outroStart} durationInFrames={OUTRO}>
         <Outro />
       </Sequence>

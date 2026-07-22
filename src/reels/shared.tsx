@@ -68,7 +68,7 @@ const overlayBackground = (overlay: Overlay, strength: number): string => {
     case "full":
       return `rgba(11,11,12,${a})`;
     case "wine":
-      return `linear-gradient(to top, rgba(124,31,49,${a}) 0%, rgba(124,31,49,${a * 0.35}) 45%, rgba(11,11,12,0.15) 100%)`;
+      return `linear-gradient(to top, rgba(159,38,60,${a}) 0%, rgba(159,38,60,${a * 0.35}) 45%, rgba(0,0,0,0.15) 100%)`;
     case "none":
     default:
       return "transparent";
@@ -282,5 +282,48 @@ export const CornerBrand: React.FC<{ color?: string; opacity?: number }> = ({
     }}
   >
     Eldee · Expo Experts
+  </div>
+);
+
+// Officiële logopositie: linksonder in beeld, -8° gedraaid.
+// Op donkere/foto-achtergronden het witte logo (standaard).
+export const CornerLogo: React.FC<{ color?: string }> = ({
+  color = BRAND.white,
+}) => (
+  <div
+    style={{
+      position: "absolute",
+      left: 64,
+      bottom: 72,
+      transform: "rotate(-8deg)",
+      transformOrigin: "left bottom",
+      opacity: 0.92,
+    }}
+  >
+    <div
+      style={{
+        fontFamily: FONT_HEADLINE,
+        fontWeight: 700,
+        fontSize: 52,
+        letterSpacing: 2,
+        lineHeight: 1,
+        color,
+      }}
+    >
+      ELDEE
+    </div>
+    <div
+      style={{
+        fontFamily: FONT_BODY,
+        fontWeight: 400,
+        fontSize: 20,
+        letterSpacing: 6,
+        color,
+        marginTop: 4,
+        textTransform: "lowercase",
+      }}
+    >
+      expo experts
+    </div>
   </div>
 );

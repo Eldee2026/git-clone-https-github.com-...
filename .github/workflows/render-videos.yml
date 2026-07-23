@@ -6,6 +6,8 @@ on:
     branches:
       - main
       - claude/create-video-setup-u8t1rl
+    paths-ignore:
+      - "**.md"
 
 jobs:
   render:

@@ -30,6 +30,7 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
       />
+      {/* 9:16 — Reels / TikTok / Stories */}
       {REELS.map((reel, index) => (
         <Composition
           key={reel.id}
@@ -39,6 +40,19 @@ export const RemotionRoot: React.FC = () => {
           fps={VIDEO_FPS}
           width={1080}
           height={1920}
+          defaultProps={{ index }}
+        />
+      ))}
+      {/* 4:5 — feed-posts, zoals het nieuwste Eldee-materiaal */}
+      {REELS.map((reel, index) => (
+        <Composition
+          key={`${reel.id}-4x5`}
+          id={`${reel.id}-4x5`}
+          component={Reel}
+          durationInFrames={reelTotalFrames(index, reel)}
+          fps={VIDEO_FPS}
+          width={1080}
+          height={1350}
           defaultProps={{ index }}
         />
       ))}

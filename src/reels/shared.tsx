@@ -1,5 +1,6 @@
 import {
   AbsoluteFill,
+  Img,
   OffthreadVideo,
   Sequence,
   interpolate,
@@ -117,7 +118,13 @@ export const Footage: React.FC<{
             <OffthreadVideo
               src={staticFile(segment.file)}
               muted
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                // Warme, premium grade: meer contrast/verzadiging, licht opgetild.
+                filter: "contrast(1.09) saturate(1.14) brightness(1.05)",
+              }}
             />
           </Sequence>
         ))}
@@ -285,45 +292,26 @@ export const CornerBrand: React.FC<{ color?: string; opacity?: number }> = ({
   </div>
 );
 
-// Officiële logopositie: linksonder in beeld, -8° gedraaid.
-// Op donkere/foto-achtergronden het witte logo (standaard).
-export const CornerLogo: React.FC<{ color?: string }> = ({
-  color = BRAND.white,
-}) => (
-  <div
-    style={{
-      position: "absolute",
-      left: 64,
-      bottom: 72,
-      transform: "rotate(-8deg)",
-      transformOrigin: "left bottom",
-      opacity: 0.92,
-    }}
-  >
-    <div
+// Officiële logopositie: het complete ronde badge-logo (public/logo-white.png,
+// tijdens de render uit assets/logo-white.ai geconverteerd), linksonder in
+// beeld. Vierkant, ~14,8% van de canvasbreedte, linkermarge ~5%. Recht
+// geplaatst conform het nieuwste ontwerp (−8° staat als open vraag in CLAUDE.md).
+export const CornerLogo: React.FC = () => {
+  const { width } = useVideoConfig();
+  const size = Math.round(width * 0.148);
+  const left = Math.round(width * 0.05);
+  return (
+    <Img
+      src={staticFile("logo-white.png")}
       style={{
-        fontFamily: FONT_HEADLINE,
-        fontWeight: 700,
-        fontSize: 52,
-        letterSpacing: 2,
-        lineHeight: 1,
-        color,
+        position: "absolute",
+        left,
+        bottom: left,
+        width: size,
+        height: size,
+        objectFit: "contain",
+        opacity: 0.95,
       }}
-    >
-      ELDEE
-    </div>
-    <div
-      style={{
-        fontFamily: FONT_BODY,
-        fontWeight: 400,
-        fontSize: 20,
-        letterSpacing: 6,
-        color,
-        marginTop: 4,
-        textTransform: "lowercase",
-      }}
-    >
-      expo experts
-    </div>
-  </div>
-);
+    />
+  );
+};

@@ -17,18 +17,12 @@ jobs:
       fail-fast: false
       matrix:
         composition:
-          # 9:16 — Reels / TikTok / Stories
+          # 9:16 — Instagram / LinkedIn Reels (gekozen formaat)
           - Reel-Optie-1
           - Reel-Optie-2
           - Reel-Optie-3
           - Reel-Optie-4
           - Reel-Optie-5
-          # 4:5 — feed-posts
-          - Reel-Optie-1-4x5
-          - Reel-Optie-2-4x5
-          - Reel-Optie-3-4x5
-          - Reel-Optie-4-4x5
-          - Reel-Optie-5-4x5
     steps:
       - uses: actions/checkout@v4
 

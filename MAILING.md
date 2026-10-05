@@ -1118,3 +1118,12 @@ STOP
 Het eindproduct is een **kant-en-klare Eldee HTML-mailing die de gebruiker zelf kan controleren en later eventueel handmatig kan gebruiken in een mailingplatform.**
 
 **Claude Code mag nooit verder gaan dan het maken en controleren van de bestanden.**
+---
+
+# 37. UITZONDERING: CONCEPT IN MAILCHIMP (op verzoek van Eldee, 05-10-2026)
+
+Op uitdrukkelijk verzoek mag de mailing als **concept** in Mailchimp worden gezet met
+`scripts/mailchimp_draft.py`. Gebruik daarvoor de bewerkbare versie
+(`output/..._mailchimp.html`, met `mc:edit`, `mc:repeatable` en `mc:hideable`).
+
+Nog steeds NOOIT: versturen, inplannen, publiceren of contacten wijzigen.
